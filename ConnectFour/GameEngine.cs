@@ -5,6 +5,7 @@ namespace ConnectFour {
     internal class GameEngine { 
         private readonly IList<IPlayer> _players;
         private readonly IGameBoard _gameBoard;
+        private readonly int _maxNumberOfTurns = Constants.NumberOfColumns * Constants.NumberOfRows;
         
         public GameEngine(IList<IPlayer> players, IGameBoard gameBoard) {
             _players = players;
@@ -13,57 +14,32 @@ namespace ConnectFour {
 
         public void Run() {
             int[,] gameBoard = new int[Constants.NumberOfRows, Constants.NumberOfColumns];
-            PrintGameBoard(gameBoard);
-        
-            Random randomNumberGenerator = new Random();
+            PrintGameBoard(gameBoard);          
 
             int turnNumber = 0;
             bool winningState = false;
-            while (!winningState) {
+            while (!winningState && turnNumber < _maxNumberOfTurns) {
+                IPlayer currentTurnPlayer = WhosTurnIsIt(turnNumber);
+                int columnToPlay = currentTurnPlayer.GetNextMove();
 
-                int playerNumber = (turnNumber % 2) + 1;
-                int columnNumberInput;
-                if (playerNumber == 1) {
-                    Console.WriteLine("Please select the column number for dropping your token (1-7)");
-                    var userInput = Console.ReadLine();
-                    if (!int.TryParse(userInput, out columnNumberInput)) {
-                        throw new ArgumentException($"Please select a number from 1 to {Constants.NumberOfColumns}");
-                    }
+                while (!_gameBoard.PlaceToken(currentTurnPlayer, columnToPlay)) {
+                    Console.WriteLine($"Column {columnToPlay} is full, please select a different column");
+                    columnToPlay = currentTurnPlayer.GetNextMove();
                 }
-                else {
-                    columnNumberInput = randomNumberGenerator.Next(0, Constants.NumberOfColumns);
-                    Console.WriteLine($"Computer played column {columnNumberInput}");
-                }
-                            
-                while (!PlaceToken(gameBoard, columnNumberInput, playerNumber)) {
-                    Console.WriteLine($"Column {columnNumberInput} is full, please select a different column");
-                    Console.WriteLine("Please select the column number for dropping your token (1-7)");
-                    var userInput = Console.ReadLine();
-                    if (!int.TryParse(userInput, out columnNumberInput)) {
-                        throw new ArgumentException($"Please select a number from 1 to {Constants.NumberOfColumns}");
-                    }
-                }
+                           
                 PrintGameBoard(gameBoard);
 
-                winningState = CheckIfInWinningState();
+                winningState = _gameBoard.IsInWinningState();
+                if (winningState) {
+                    Console.WriteLine($"Player {currentTurnPlayer.Name} has won!");
+                }
 
                 turnNumber++;
             }
-        }
 
-        public bool PlaceToken(int[,] gameBoard, int columnNumber, int playerNumber) {
-            columnNumber--;
-            bool result = false;
-
-            for (int row = Constants.NumberOfRows - 1; row >= 0; row--) {
-                if (gameBoard[row, columnNumber] == 0) {
-                    gameBoard[row, columnNumber] = playerNumber;
-                    result = true;
-                    break;
-                }
+            if (turnNumber == _maxNumberOfTurns) {
+                Console.WriteLine("Board is full and there is no winner");
             }
-
-            return result;
         }
 
         public void PrintGameBoard(int[,] gameBoard) {
@@ -76,10 +52,6 @@ namespace ConnectFour {
                 Console.WriteLine();
                 Console.WriteLine("-----------------------------");
             }
-        }
-
-        public bool CheckIfInWinningState() {
-            return false;
         }
 
         private IPlayer WhosTurnIsIt(int turnNumber) {
