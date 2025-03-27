@@ -1,10 +1,15 @@
 ﻿namespace ConnectFour {
-    public class Program {
+    internal class Program {
 
         private const int RowCount = 6;
         private const int ColCount = 7;
 
-        public static void Main(string[] args) {
+        static void Main(string[] args) {
+            PlayerFactory playerFactory = new PlayerFactory();
+            IList<IPlayer> players = [playerFactory.CreatePlayer(PlayerType.Human), playerFactory.CreatePlayer(PlayerType.Computer)];
+
+            GameEngine gameEngine = new GameEngine(players);
+            
             int[,] gameBoard = new int[RowCount, ColCount];
             PrintGameBoard(gameBoard);
         
