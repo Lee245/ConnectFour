@@ -1,0 +1,44 @@
+@startuml
+class GameEngine {
+    -IPlayer[]
+    -IGameBoard
+    +Run()
+}
+
+interface IPlayer
+class HumanPlayer {
+    -IInput
+}
+class ComputerPlayer
+interface IInput
+class ConsoleInput
+
+interface IGameBoard {
+
+}
+
+class GameBoard {
+    +IsInWinningState()
+}
+
+interface IGameBoardView {
+
+}
+
+class GameBoardView {
+}
+
+GameEngine "1" -- "many" IPlayer
+
+IPlayer <|.. HumanPlayer
+IPlayer <|.. ComputerPlayer
+
+HumanPlayer <-- IInput
+IInput <|.. ConsoleInput
+
+GameEngine "1" -- "1" IGameBoard
+IGameBoard <|.. GameBoard
+
+GameBoard "1" -- "1" IGameBoardView
+IGameBoardView <|.. GameBoardView
+@enduml
