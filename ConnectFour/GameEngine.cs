@@ -68,10 +68,13 @@ namespace ConnectFour {
 
         public void PrintGameBoard(int[,] gameBoard) {
             for (int row = 0; row < Constants.NumberOfRows; row++) {
+                Console.Write("| ");
                 for (int col = 0; col < Constants.NumberOfColumns; col++) {
                     Console.Write(gameBoard[row,col]);
+                    Console.Write(" | ");
                 }
                 Console.WriteLine();
+                Console.WriteLine("-----------------------------");
             }
         }
 
