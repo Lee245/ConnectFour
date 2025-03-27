@@ -10,12 +10,23 @@ namespace ConnectFour {
 
         public bool IsInWinningState()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public bool PlaceToken(IPlayer player, int columnNumber)
         {
-            throw new NotImplementedException();
+            columnNumber--;
+            bool result = false;
+
+            for (int row = Constants.NumberOfRows - 1; row >= 0; row--) {
+                if (_gameBoardMatrix[row, columnNumber] == 0) {
+                    _gameBoardMatrix[row, columnNumber] = player.Number;
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }
