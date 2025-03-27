@@ -1,4 +1,5 @@
-@startuml
+@startuml ConnectFour
+
 class GameEngine {
     -IPlayer[]
     -IGameBoard
@@ -41,4 +42,5 @@ IGameBoard <|.. GameBoard
 
 GameBoard "1" -- "1" IGameBoardView
 IGameBoardView <|.. GameBoardView
+
 @enduml
