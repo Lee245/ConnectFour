@@ -1,14 +1,14 @@
 namespace ConnectFour {
     /// <inheritdoc/>
-    internal class GameBoardViewer : IGameBoardViewer
+    public class GameBoardViewer : IGameBoardViewer
     {
         /// <inheritdoc/>
-        public void ShowGameBoard(int[,] gameBoardMatrix)
+        public void ShowGameBoard(int[,] gameBoardMatrix, int rowIndexUpperBound, int colIndexUpperBound)
         {
             // Print from top to bottom
-            for (int row = Constants.NumberOfRows - 1; row >=0; row--) {
+            for (int row = rowIndexUpperBound; row >=0; row--) {
                 Console.Write("| ");
-                for (int col = 0; col < Constants.NumberOfColumns; col++) {
+                for (int col = 0; col < colIndexUpperBound; col++) {
                     Console.Write(gameBoardMatrix[row,col]);
                     Console.Write(" | ");
                 }

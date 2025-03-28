@@ -7,6 +7,8 @@ namespace ConnectFour {
         /// Show the gameboard
         /// </summary>
         /// <param name="gameBoardMatrix">Gameboard representation</param>
-        void ShowGameBoard(int[,] gameBoardMatrix);
+        /// <param name="rowIndexUpperBound">Upper bound row index</param>
+        /// <param name="colIndexUpperBound">Upper bound column index</param>
+        void ShowGameBoard(int[,] gameBoardMatrix, int rowIndexUpperBound, int colIndexUpperBound);
     }
 }
