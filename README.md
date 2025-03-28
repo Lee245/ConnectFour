@@ -13,3 +13,6 @@ From the command-line, assuming you're in the root folder of this project:
 
 To run the unit tests execute:
 `dotnet test`
+
+## Class Diagram
+![Class Diagram](./out/umldiagram/ConnectFour.svg)
