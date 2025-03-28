@@ -6,10 +6,10 @@ namespace ConnectFour {
         /// <summary>
         /// Place token on board
         /// </summary>
-        /// <param name="player">The player</param>
+        /// <param name="playerNumber">The player number</param>
         /// <param name="columnNumber">The column number to pick</param>
         /// <returns>True if successful, false if column is full.</returns>
-        bool PlaceToken(IPlayer player, int columnNumber);
+        bool PlaceToken(int playerNumber, int columnNumber);
 
         /// <summary>
         /// Check if the board is in winning state

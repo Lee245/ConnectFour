@@ -23,7 +23,7 @@ namespace ConnectFour {
                 IPlayer currentTurnPlayer = GetPlayerForTurn(turnNumber);
                 int columnToPlay = currentTurnPlayer.GetNextMove();
 
-                while (!_gameBoard.PlaceToken(currentTurnPlayer, columnToPlay)) {
+                while (!_gameBoard.PlaceToken(currentTurnPlayer.Number, columnToPlay)) {
                     Console.WriteLine($"Column {columnToPlay} is full, please select a different column");
                     columnToPlay = currentTurnPlayer.GetNextMove();
                 }

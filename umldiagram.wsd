@@ -1,46 +1,63 @@
 @startuml ConnectFour
 
 class GameEngine {
-    -IPlayer[]
-    -IGameBoard
+    -players: IPlayer[]
+    -gameBoard: IGameBoard
     +Run()
+    -GetPlayerForTurn() : IPlayer
 }
 
-interface IPlayer
+interface IPlayer {
+    +Name: string
+    +Number: int
+    +GetNextMove(): int
+}
+class Player {
+    #numberOfColumns: int
+}
 class HumanPlayer {
-    -IInput
+    -input: IInput
 }
 class ComputerPlayer
 interface IInput
 class ConsoleInput
 
 interface IGameBoard {
-
+    +PlaceToken(int, int) : bool
+    +IsInWinningState(int): bool
+    +ShowGameBoard()
 }
 
 class GameBoard {
-    +IsInWinningState()
+    -gameBoardMatrix: int[][]
+    -gameBoardViewer: IGameBoardViewer
+    -rowIndexUpperBound: int
+    -colIndexUpperBound: int
+    -tokensInLineForAWin: int
+    -CompensateForZeroBasedIndex(int): int
 }
 
-interface IGameBoardView {
-
+interface IGameBoardViewer {
+    +ShowGameBoard(int[][], int, int)
 }
 
-class GameBoardView {
+class GameBoardViewer {
 }
 
-GameEngine "1" -- "many" IPlayer
+GameEngine "1" *-- "many" IPlayer
 
-IPlayer <|.. HumanPlayer
-IPlayer <|.. ComputerPlayer
+IPlayer <|.. Player
 
-HumanPlayer <-- IInput
+Player <|-- HumanPlayer
+Player <|-- ComputerPlayer
+
+HumanPlayer *-- IInput
 IInput <|.. ConsoleInput
 
-GameEngine "1" -- "1" IGameBoard
+GameEngine "1" *-- "1" IGameBoard
 IGameBoard <|.. GameBoard
 
-GameBoard "1" -- "1" IGameBoardView
-IGameBoardView <|.. GameBoardView
+GameBoard "1" *-- "1" IGameBoardViewer
+IGameBoardViewer <|.. GameBoardViewer
 
 @enduml

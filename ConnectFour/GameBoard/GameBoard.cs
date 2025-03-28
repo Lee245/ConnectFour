@@ -19,14 +19,14 @@ namespace ConnectFour {
         }
 
         /// <inheritdoc/>
-        public bool PlaceToken(IPlayer player, int columnNumber)
+        public bool PlaceToken(int playerNumber, int columnNumber)
         {
             int columnIndex = CompensateForZeroBasedIndex(columnNumber);
             bool result = false;
 
             for (int row = 0; row <= _rowIndexUpperBound; row++) {
                 if (_gameBoardMatrix[row, columnIndex] == 0) {
-                    _gameBoardMatrix[row, columnIndex] = player.Number;
+                    _gameBoardMatrix[row, columnIndex] = playerNumber;
                     result = true;
                     break;
                 }
