@@ -16,6 +16,7 @@ namespace ConnectFour {
                 Console.WriteLine();
                 Console.WriteLine("-----------------------------");
             }
+            Console.WriteLine();
         }
     }
 }
