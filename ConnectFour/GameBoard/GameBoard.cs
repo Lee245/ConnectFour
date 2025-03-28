@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace ConnectFour {
     /// <inheritdoc/>
     public class GameBoard : IGameBoard
@@ -6,12 +8,37 @@ namespace ConnectFour {
         private readonly IGameBoardViewer _gameBoardViewer;
         private readonly int _rowIndexUpperBound;
         private readonly int _colIndexUpperBound;
+        private readonly int _tokensInLineForAWin;
 
-        public GameBoard(IGameBoardViewer gameBoardViewer, int[,] gameBoardMatrix) {          
+        public GameBoard(IGameBoardViewer gameBoardViewer, int[,] gameBoardMatrix, int tokensInLineForAWin) {          
             _gameBoardViewer = gameBoardViewer;
             _gameBoardMatrix = gameBoardMatrix;
             _rowIndexUpperBound = gameBoardMatrix.GetLength(0) - 1;
-            _colIndexUpperBound = gameBoardMatrix.Length / _rowIndexUpperBound - 1;
+            _colIndexUpperBound = gameBoardMatrix.Length / gameBoardMatrix.GetLength(0) - 1;
+            _tokensInLineForAWin = tokensInLineForAWin;
+        }
+
+        /// <inheritdoc/>
+        public bool PlaceToken(IPlayer player, int columnNumber)
+        {
+            int columnIndex = CompensateForZeroBasedIndex(columnNumber);
+            bool result = false;
+
+            for (int row = 0; row <= _rowIndexUpperBound; row++) {
+                if (_gameBoardMatrix[row, columnIndex] == 0) {
+                    _gameBoardMatrix[row, columnIndex] = player.Number;
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public void ShowGameBoard()
+        {
+            _gameBoardViewer.ShowGameBoard(_gameBoardMatrix, _rowIndexUpperBound, _colIndexUpperBound);
         }
 
         /// <inheritdoc/>
@@ -30,7 +57,7 @@ namespace ConnectFour {
             int tokensInHorizontalLine = 1;
             // Check rightwards
             int col = columnLastPlayed + 1;
-            while (col < _colIndexUpperBound && _gameBoardMatrix[stackHeightInColumn, col] == playerNumber) {
+            while (col <= _colIndexUpperBound && _gameBoardMatrix[stackHeightInColumn, col] == playerNumber) {
                 col++;
                 tokensInHorizontalLine++;
             }
@@ -40,7 +67,7 @@ namespace ConnectFour {
                 col--;
                 tokensInHorizontalLine++;
             }
-            if (tokensInHorizontalLine >= Constants.TokensInLineForAWin) {
+            if (tokensInHorizontalLine >= _tokensInLineForAWin) {
                 return true;
             }
 
@@ -48,7 +75,7 @@ namespace ConnectFour {
             int tokensInVerticalLine = 1;
             // Check upwards
             int row = stackHeightInColumn + 1;
-            while (row < _rowIndexUpperBound && _gameBoardMatrix[row, columnLastPlayed] == playerNumber) {
+            while (row <= _rowIndexUpperBound && _gameBoardMatrix[row, columnLastPlayed] == playerNumber) {
                 row++;
                 tokensInVerticalLine++;
             }
@@ -58,7 +85,7 @@ namespace ConnectFour {
                 row--;
                 tokensInVerticalLine++;
             }
-            if (tokensInHorizontalLine >= Constants.TokensInLineForAWin) {
+            if (tokensInVerticalLine >= _tokensInLineForAWin) {
                 return true;
             }
 
@@ -67,7 +94,7 @@ namespace ConnectFour {
             // Check to the upper-right
             row = stackHeightInColumn + 1;
             col = columnLastPlayed + 1;
-            while (row < _rowIndexUpperBound && col < _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
+            while (row <= _rowIndexUpperBound && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
                 row++;
                 col++;
                 tokensUpwardDiagonalLine++;
@@ -75,12 +102,12 @@ namespace ConnectFour {
             // Check to the lower-left
             row = stackHeightInColumn - 1;
             col = columnLastPlayed - 1;
-            while (row >= 0 && col >= 0 && _gameBoardMatrix[row, columnLastPlayed] == playerNumber) {
+            while (row >= 0 && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
                 row--;
                 col--;
                 tokensUpwardDiagonalLine++;
             }
-            if (tokensUpwardDiagonalLine >= Constants.TokensInLineForAWin) {
+            if (tokensUpwardDiagonalLine >= _tokensInLineForAWin) {
                 return true;
             }
 
@@ -89,7 +116,7 @@ namespace ConnectFour {
             // Check to the upper-left
             row = stackHeightInColumn + 1;
             col = columnLastPlayed - 1;
-            while (row < _rowIndexUpperBound && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
+            while (row <= _rowIndexUpperBound && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
                 row++;
                 col--;
                 tokensDownwardDiagonalLine++;
@@ -97,40 +124,17 @@ namespace ConnectFour {
             // Check to the lower-right
             row = stackHeightInColumn - 1;
             col = columnLastPlayed + 1;
-            while (row >= 0 && col < _colIndexUpperBound && _gameBoardMatrix[row, columnLastPlayed] == playerNumber) {
+            while (row >= 0 && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
                 row--;
                 col++;
                 tokensDownwardDiagonalLine++;
             }
-            if (tokensDownwardDiagonalLine >= Constants.TokensInLineForAWin) {
+            if (tokensDownwardDiagonalLine >= _tokensInLineForAWin) {
                 return true;
             }
 
 
             return false;
-        }
-
-        /// <inheritdoc/>
-        public bool PlaceToken(IPlayer player, int columnNumber)
-        {
-            int columnIndex = CompensateForZeroBasedIndex(columnNumber);
-            bool result = false;
-
-            for (int row = 0; row < _rowIndexUpperBound; row++) {
-                if (_gameBoardMatrix[row, columnIndex] == 0) {
-                    _gameBoardMatrix[row, columnIndex] = player.Number;
-                    result = true;
-                    break;
-                }
-            }
-
-            return result;
-        }
-
-        /// <inheritdoc/>
-        public void ShowGameBoard()
-        {
-            _gameBoardViewer.ShowGameBoard(_gameBoardMatrix, _rowIndexUpperBound, _colIndexUpperBound);
         }
 
         private static int CompensateForZeroBasedIndex(int number) {
