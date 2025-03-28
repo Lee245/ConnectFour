@@ -1,6 +1,6 @@
 namespace ConnectFour {
     /// <inheritdoc/>
-    internal class ComputerPlayer : IPlayer
+    public class ComputerPlayer : IPlayer
     {
         private readonly Random _randomNumberGenerator = new Random();
 

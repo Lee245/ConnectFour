@@ -1,6 +1,6 @@
 ﻿namespace ConnectFour {
     internal class Program {
-        static void Main(string[] args) {
+        static void Main() {
             // Initialize
             PlayerFactory playerFactory = new PlayerFactory();
             IList<IPlayer> players = [playerFactory.CreatePlayer(PlayerType.Human), playerFactory.CreatePlayer(PlayerType.Computer)];
