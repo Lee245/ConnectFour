@@ -15,7 +15,7 @@ public sealed class RandomComputerPlayerTests
         string result = computerPlayer.Name;
 
         // Assert
-        Assert.AreEqual("Computer", result);
+        Assert.AreEqual("RandomComputer", result);
     }
 
     [TestMethod]

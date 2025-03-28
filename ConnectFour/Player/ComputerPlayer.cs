@@ -8,7 +8,7 @@ namespace ConnectFour {
         private readonly Random _randomNumberGenerator = new Random();
 
         /// <inheritdoc/>
-        public string Name => "Computer";
+        public string Name => "RandomComputer";
 
         /// <inheritdoc/>
         public int Number => 2;

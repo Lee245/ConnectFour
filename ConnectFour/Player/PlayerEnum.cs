@@ -4,6 +4,6 @@ namespace ConnectFour {
     /// </summary>
     public enum PlayerType {
         Human,
-        Computer
+        RandomComputer
     }
 }

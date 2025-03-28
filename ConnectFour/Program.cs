@@ -3,7 +3,7 @@
         static void Main() {
             // Initialize
             PlayerFactory playerFactory = new PlayerFactory();
-            IList<IPlayer> players = [playerFactory.CreatePlayer(PlayerType.Human), playerFactory.CreatePlayer(PlayerType.Computer)];
+            IList<IPlayer> players = [playerFactory.CreatePlayer(PlayerType.Human), playerFactory.CreatePlayer(PlayerType.RandomComputer)];
             int[,] gameBoardMatrix = new int[Constants.NumberOfRows, Constants.NumberOfColumns];
             IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix);
             GameEngine gameEngine = new GameEngine(players, gameBoard);
