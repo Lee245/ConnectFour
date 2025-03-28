@@ -3,19 +3,16 @@ namespace ConnectFour {
     /// <summary>
     /// Human player
     /// </summary>
-    internal class HumanPlayer : IPlayer
+    public class HumanPlayer : Player
     {
-        private readonly int _numberOfColumns;
+        public HumanPlayer(int numberOfColumns) 
+            : base(numberOfColumns) {}
 
-        public HumanPlayer(int numberOfColumns) {
-            _numberOfColumns = numberOfColumns;
-        }
+        public override string Name => "Human";
 
-        public string Name => "Human";
+        public override int Number => 1;
 
-        public int Number => 1;
-
-        public int GetNextMove()
+        public override int GetNextMove()
         {
             // TODO: Wrap console in a new 'Input' class to account for other ways to get user input
             Console.WriteLine($"Please select the column number for dropping your token (1-{_numberOfColumns})");
