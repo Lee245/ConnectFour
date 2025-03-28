@@ -2,11 +2,12 @@ namespace ConnectFour {
     /// <inheritdoc/>
     internal class GameBoard : IGameBoard
     {
-        private readonly int[,] _gameBoardMatrix = new int[Constants.NumberOfRows, Constants.NumberOfColumns];
+        private readonly int[,] _gameBoardMatrix;
         private readonly IGameBoardViewer _gameBoardViewer;
 
-        public GameBoard(IGameBoardViewer gameBoardViewer) {
+        public GameBoard(IGameBoardViewer gameBoardViewer, int[,] gameBoardMatrix) {
             _gameBoardViewer = gameBoardViewer;
+            _gameBoardMatrix = gameBoardMatrix;
         }
 
         /// <inheritdoc/>
