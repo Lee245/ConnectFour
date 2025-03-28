@@ -1,4 +1,5 @@
 namespace ConnectFour {
+    
     /// <summary>
     /// Factory for creating <see cref="IPlayer"/>s
     /// </summary>

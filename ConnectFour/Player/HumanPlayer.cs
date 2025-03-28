@@ -1,4 +1,8 @@
 namespace ConnectFour {
+    
+    /// <summary>
+    /// Human player
+    /// </summary>
     internal class HumanPlayer : IPlayer
     {
         public string Name => "Human";

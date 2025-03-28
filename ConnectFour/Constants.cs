@@ -2,7 +2,7 @@ namespace ConnectFour {
     /// <summary>
     /// Game-related constants
     /// </summary>
-    /// TODO: Make them configurable
+    // TODO: Make them configurable
     public static class Constants {
         /// <summary>
         /// Number of rows for the gameboard
