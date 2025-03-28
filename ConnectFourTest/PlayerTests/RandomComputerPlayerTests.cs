@@ -42,6 +42,6 @@ public sealed class RandomComputerPlayerTests
 
         // Assert
         Assert.IsTrue(result >= 0);
-        Assert.IsTrue(result < Constants.NumberOfColumns);
+        Assert.IsTrue(result < 2);
     }
 }
