@@ -12,6 +12,7 @@ namespace ConnectFour {
             _gameBoard = gameBoard;
         }
 
+        // TODO: Wrap Console in a new 'Output' class
         public void Run() {
             int turnNumber = 0;
             bool winningState = false;

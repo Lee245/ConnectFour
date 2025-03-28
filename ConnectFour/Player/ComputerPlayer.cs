@@ -6,6 +6,12 @@ namespace ConnectFour {
     public class RandomComputerPlayer : IPlayer
     {
         private readonly Random _randomNumberGenerator = new Random();
+        private readonly int _numberOfColumns;
+
+        public RandomComputerPlayer(int numberOfColumns) {
+            _numberOfColumns = Number;
+        }
+
 
         /// <inheritdoc/>
         public string Name => "RandomComputer";
@@ -16,7 +22,7 @@ namespace ConnectFour {
         /// <inheritdoc/>
         public int GetNextMove()
         {
-            return _randomNumberGenerator.Next(1, Constants.NumberOfColumns);
+            return _randomNumberGenerator.Next(1, _numberOfColumns);
         }
     }
 }

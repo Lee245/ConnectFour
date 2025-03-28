@@ -11,7 +11,7 @@ public sealed class GameBoardTests
         // Arrange
         int[,] gameBoardMatrix = new int[1, 1];
         IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
-        IPlayer player = new RandomComputerPlayer();
+        IPlayer player = new RandomComputerPlayer(1);
 
         // Act
         bool result = gameBoard.PlaceToken(player, 1);
@@ -27,7 +27,7 @@ public sealed class GameBoardTests
         int[,] gameBoardMatrix = new int[1, 1];
         gameBoardMatrix[0,0] = 1;
         IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
-        IPlayer player = new RandomComputerPlayer();
+        IPlayer player = new RandomComputerPlayer(1);
 
         // Act
         bool result = gameBoard.PlaceToken(player, 1);
