@@ -12,12 +12,13 @@ namespace ConnectFour {
         /// <inheritdoc/>
         public bool IsInWinningState(int columnLastPlayed)
         {
+            columnLastPlayed = CompensateForZeroBasedIndex(columnLastPlayed);
+
             int stackHeightInColumn = Constants.NumberOfRows - 1;
             while (_gameBoardMatrix[stackHeightInColumn, columnLastPlayed] == 0) {
                 stackHeightInColumn--;
             }
 
-            // TODO: Implement horizontal, vertical and diagonal checks.
             int playerNumber = _gameBoardMatrix[stackHeightInColumn, columnLastPlayed];
             
             // Horizontal check
