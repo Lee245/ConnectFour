@@ -8,7 +8,7 @@ namespace ConnectFour {
         private readonly int _numberOfColumns;
 
         public HumanPlayer(int numberOfColumns) {
-            _numberOfColumns = Number;
+            _numberOfColumns = numberOfColumns;
         }
 
         public string Name => "Human";

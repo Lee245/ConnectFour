@@ -9,9 +9,8 @@ namespace ConnectFour {
         private readonly int _numberOfColumns;
 
         public RandomComputerPlayer(int numberOfColumns) {
-            _numberOfColumns = Number;
+            _numberOfColumns = numberOfColumns;
         }
-
 
         /// <inheritdoc/>
         public string Name => "RandomComputer";
