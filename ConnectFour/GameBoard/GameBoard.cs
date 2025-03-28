@@ -44,26 +44,26 @@ namespace ConnectFour {
         /// <inheritdoc/>
         public bool IsInWinningState(int columnLastPlayed)
         {
-            columnLastPlayed = CompensateForZeroBasedIndex(columnLastPlayed);
+            int colIndexLastPlayed = CompensateForZeroBasedIndex(columnLastPlayed);
 
-            int stackHeightInColumn = _rowIndexUpperBound;
-            while (_gameBoardMatrix[stackHeightInColumn, columnLastPlayed] == 0) {
-                stackHeightInColumn--;
+            int rowIndexLastPlayed = _rowIndexUpperBound;
+            while (_gameBoardMatrix[rowIndexLastPlayed, colIndexLastPlayed] == 0) {
+                rowIndexLastPlayed--;
             }
 
-            int playerNumber = _gameBoardMatrix[stackHeightInColumn, columnLastPlayed];
+            int playerNumber = _gameBoardMatrix[rowIndexLastPlayed, colIndexLastPlayed];
             
             // Horizontal check
             int tokensInHorizontalLine = 1;
             // Check rightwards
-            int col = columnLastPlayed + 1;
-            while (col <= _colIndexUpperBound && _gameBoardMatrix[stackHeightInColumn, col] == playerNumber) {
+            int col = colIndexLastPlayed + 1;
+            while (col <= _colIndexUpperBound && _gameBoardMatrix[rowIndexLastPlayed, col] == playerNumber) {
                 col++;
                 tokensInHorizontalLine++;
             }
             // Check leftwards
-            col = columnLastPlayed - 1;
-            while (col >= 0 && _gameBoardMatrix[stackHeightInColumn, col] == playerNumber) {
+            col = colIndexLastPlayed - 1;
+            while (col >= 0 && _gameBoardMatrix[rowIndexLastPlayed, col] == playerNumber) {
                 col--;
                 tokensInHorizontalLine++;
             }
@@ -74,14 +74,14 @@ namespace ConnectFour {
             // Vertical check
             int tokensInVerticalLine = 1;
             // Check upwards
-            int row = stackHeightInColumn + 1;
-            while (row <= _rowIndexUpperBound && _gameBoardMatrix[row, columnLastPlayed] == playerNumber) {
+            int row = rowIndexLastPlayed + 1;
+            while (row <= _rowIndexUpperBound && _gameBoardMatrix[row, colIndexLastPlayed] == playerNumber) {
                 row++;
                 tokensInVerticalLine++;
             }
             // Check downwards
-            row = stackHeightInColumn - 1;
-            while (row >= 0 && _gameBoardMatrix[row, columnLastPlayed] == playerNumber) {
+            row = rowIndexLastPlayed - 1;
+            while (row >= 0 && _gameBoardMatrix[row, colIndexLastPlayed] == playerNumber) {
                 row--;
                 tokensInVerticalLine++;
             }
@@ -92,16 +92,16 @@ namespace ConnectFour {
             // Upward diagonal
             int tokensUpwardDiagonalLine = 1;
             // Check to the upper-right
-            row = stackHeightInColumn + 1;
-            col = columnLastPlayed + 1;
+            row = rowIndexLastPlayed + 1;
+            col = colIndexLastPlayed + 1;
             while (row <= _rowIndexUpperBound && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
                 row++;
                 col++;
                 tokensUpwardDiagonalLine++;
             }
             // Check to the lower-left
-            row = stackHeightInColumn - 1;
-            col = columnLastPlayed - 1;
+            row = rowIndexLastPlayed - 1;
+            col = colIndexLastPlayed - 1;
             while (row >= 0 && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
                 row--;
                 col--;
@@ -114,16 +114,16 @@ namespace ConnectFour {
             // Downward diagonal
             int tokensDownwardDiagonalLine = 1;
             // Check to the upper-left
-            row = stackHeightInColumn + 1;
-            col = columnLastPlayed - 1;
+            row = rowIndexLastPlayed + 1;
+            col = colIndexLastPlayed - 1;
             while (row <= _rowIndexUpperBound && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
                 row++;
                 col--;
                 tokensDownwardDiagonalLine++;
             }
             // Check to the lower-right
-            row = stackHeightInColumn - 1;
-            col = columnLastPlayed + 1;
+            row = rowIndexLastPlayed - 1;
+            col = colIndexLastPlayed + 1;
             while (row >= 0 && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
                 row--;
                 col++;

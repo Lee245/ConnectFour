@@ -11,10 +11,11 @@ namespace ConnectFour {
 
         public int GetNextMove()
         {
+            // TODO: Wrap console in a new 'Input' class to account for other ways to get user input
             Console.WriteLine($"Please select the column number for dropping your token (1-{Constants.NumberOfColumns})");
             var userInput = Console.ReadLine();
             int columnNumberInput;
-            while (!int.TryParse(userInput, out columnNumberInput)) {
+            while (!int.TryParse(userInput, out columnNumberInput) || columnNumberInput < 1 || columnNumberInput > Constants.NumberOfColumns) {
                 Console.WriteLine($"Please select a number from 1 to {Constants.NumberOfColumns}");
                 userInput = Console.ReadLine();
             }
