@@ -7,7 +7,7 @@ namespace ConnectFour {
 
         public int GetNextMove()
         {
-            Console.WriteLine("Please select the column number for dropping your token (1-7)");
+            Console.WriteLine($"Please select the column number for dropping your token (1-{Constants.NumberOfColumns})");
             var userInput = Console.ReadLine();
             int columnNumberInput;
             while (!int.TryParse(userInput, out columnNumberInput)) {

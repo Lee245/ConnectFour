@@ -8,8 +8,16 @@ namespace ConnectFour {
             _gameBoardViewer = gameBoardViewer;
         }
 
-        public bool IsInWinningState()
+        public bool IsInWinningState(int columnLastPlayed)
         {
+            int stackHeightInColumn = Constants.NumberOfRows - 1;
+            while (_gameBoardMatrix[stackHeightInColumn, columnLastPlayed] == 0) {
+                stackHeightInColumn--;
+            }
+
+            // TODO: Implement horizontal, vertical and diagonal checks.
+            int playerNumber = _gameBoardMatrix[stackHeightInColumn, columnLastPlayed];
+
             return false;
         }
 
@@ -18,7 +26,7 @@ namespace ConnectFour {
             columnNumber--;
             bool result = false;
 
-            for (int row = Constants.NumberOfRows - 1; row >= 0; row--) {
+            for (int row = 0; row < Constants.NumberOfRows; row++) {
                 if (_gameBoardMatrix[row, columnNumber] == 0) {
                     _gameBoardMatrix[row, columnNumber] = player.Number;
                     result = true;
@@ -27,6 +35,20 @@ namespace ConnectFour {
             }
 
             return result;
+        }
+
+        public void ShowGameBoard()
+        {
+            // Print from top to bottom
+            for (int row = Constants.NumberOfRows - 1; row >=0; row++) {
+                Console.Write("| ");
+                for (int col = 0; col < Constants.NumberOfColumns; col++) {
+                    Console.Write(_gameBoardMatrix[row,col]);
+                    Console.Write(" | ");
+                }
+                Console.WriteLine();
+                Console.WriteLine("-----------------------------");
+            }
         }
     }
 }

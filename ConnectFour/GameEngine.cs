@@ -13,11 +13,11 @@ namespace ConnectFour {
         }
 
         public void Run() {
-            int[,] gameBoard = new int[Constants.NumberOfRows, Constants.NumberOfColumns];
-            PrintGameBoard(gameBoard);          
-
             int turnNumber = 0;
             bool winningState = false;
+            _gameBoard.ShowGameBoard();
+
+            // Continue until either someone has won or the board is full
             while (!winningState && turnNumber < _maxNumberOfTurns) {
                 IPlayer currentTurnPlayer = WhosTurnIsIt(turnNumber);
                 int columnToPlay = currentTurnPlayer.GetNextMove();
@@ -27,9 +27,9 @@ namespace ConnectFour {
                     columnToPlay = currentTurnPlayer.GetNextMove();
                 }
                            
-                PrintGameBoard(gameBoard);
+                _gameBoard.ShowGameBoard();
 
-                winningState = _gameBoard.IsInWinningState();
+                winningState = _gameBoard.IsInWinningState(columnToPlay);
                 if (winningState) {
                     Console.WriteLine($"Player {currentTurnPlayer.Name} has won!");
                 }
@@ -42,20 +42,8 @@ namespace ConnectFour {
             }
         }
 
-        public void PrintGameBoard(int[,] gameBoard) {
-            for (int row = 0; row < Constants.NumberOfRows; row++) {
-                Console.Write("| ");
-                for (int col = 0; col < Constants.NumberOfColumns; col++) {
-                    Console.Write(gameBoard[row,col]);
-                    Console.Write(" | ");
-                }
-                Console.WriteLine();
-                Console.WriteLine("-----------------------------");
-            }
-        }
-
         private IPlayer WhosTurnIsIt(int turnNumber) {
-            int playerIndex = turnNumber % 2;
+            int playerIndex = turnNumber % Constants.NumberOfPlayers;
             return _players[playerIndex];
         }
     }
