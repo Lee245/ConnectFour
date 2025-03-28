@@ -20,7 +20,7 @@ namespace ConnectFour {
 
             // Continue until either someone has won or the board is full
             while (!winningState && turnNumber < _maxNumberOfTurns) {
-                IPlayer currentTurnPlayer = WhosTurnIsIt(turnNumber);
+                IPlayer currentTurnPlayer = GetPlayerForTurn(turnNumber);
                 int columnToPlay = currentTurnPlayer.GetNextMove();
 
                 while (!_gameBoard.PlaceToken(currentTurnPlayer, columnToPlay)) {
@@ -34,6 +34,7 @@ namespace ConnectFour {
                 winningState = _gameBoard.IsInWinningState(columnToPlay);
                 if (winningState) {
                     Console.WriteLine($"Player {currentTurnPlayer.Name} has won!");
+                    return;
                 }
 
                 turnNumber++;
@@ -44,7 +45,7 @@ namespace ConnectFour {
             }
         }
 
-        private IPlayer WhosTurnIsIt(int turnNumber) {
+        private IPlayer GetPlayerForTurn(int turnNumber) {
             int playerIndex = turnNumber % Constants.NumberOfPlayers;
             return _players[playerIndex];
         }
