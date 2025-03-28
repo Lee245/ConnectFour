@@ -11,7 +11,7 @@ public sealed class GameBoardTests
     {
         // Arrange
         int[,] gameBoardMatrix = new int[1, 1];
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
         IPlayer playerMock = Mock.Of<IPlayer>();
 
         // Act
@@ -27,7 +27,7 @@ public sealed class GameBoardTests
         // Arrange
         int[,] gameBoardMatrix = new int[1, 1];
         gameBoardMatrix[0,0] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
         IPlayer playerMock = Mock.Of<IPlayer>();
 
         // Act
@@ -43,7 +43,7 @@ public sealed class GameBoardTests
         // Arrange
         int[,] gameBoardMatrix = new int[2, 1];
         gameBoardMatrix[0,0] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 2);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 2);
 
         // Act
         bool result = gameBoard.IsInWinningState(1);
@@ -61,7 +61,7 @@ public sealed class GameBoardTests
         gameBoardMatrix[0,1] = 1;
         gameBoardMatrix[0,2] = 1;
         gameBoardMatrix[0,3] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
 
         // Act
         bool result1 = gameBoard.IsInWinningState(1);
@@ -85,7 +85,7 @@ public sealed class GameBoardTests
         gameBoardMatrix[0,1] = 1;
         gameBoardMatrix[0,2] = 1;
         gameBoardMatrix[0,3] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 5);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 5);
 
         // Act
         bool result1 = gameBoard.IsInWinningState(1);
@@ -103,7 +103,7 @@ public sealed class GameBoardTests
         gameBoardMatrix[1,0] = 1;
         gameBoardMatrix[2,0] = 1;
         gameBoardMatrix[3,0] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
 
         // Act
         bool result = gameBoard.IsInWinningState(1);
@@ -120,7 +120,7 @@ public sealed class GameBoardTests
         gameBoardMatrix[0,0] = 1;
         gameBoardMatrix[1,1] = 1;
         gameBoardMatrix[2,2] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 3);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 3);
 
         // Act
         bool result1 = gameBoard.IsInWinningState(1);
@@ -141,7 +141,7 @@ public sealed class GameBoardTests
         gameBoardMatrix[0,2] = 1;
         gameBoardMatrix[1,1] = 1;
         gameBoardMatrix[2,0] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 3);
+        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 3);
 
         // Act
         bool result1 = gameBoard.IsInWinningState(1);
