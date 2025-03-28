@@ -15,7 +15,7 @@ namespace ConnectFour {
                 case PlayerType.Human:
                     return new HumanPlayer();
                 case PlayerType.Computer:
-                    return new ComputerPlayer();
+                    return new RandomComputerPlayer();
                 default:
                     throw new ArgumentException($"Player type {playerType} not recognized");
             }

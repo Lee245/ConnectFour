@@ -3,13 +3,13 @@
 namespace ConnectFourTest;
 
 [TestClass]
-public sealed class ComputerPlayerTests
+public sealed class RandomComputerPlayerTests
 {
     [TestMethod]
     public void Name_WhenCalled_ReturnsComputer()
     {
         // Arrange
-        IPlayer computerPlayer = new ComputerPlayer();
+        IPlayer computerPlayer = new RandomComputerPlayer();
 
         // Act
         string result = computerPlayer.Name;
@@ -22,7 +22,7 @@ public sealed class ComputerPlayerTests
     public void Number_WhenCalled_ReturnsComputer()
     {
         // Arrange
-        IPlayer computerPlayer = new ComputerPlayer();
+        IPlayer computerPlayer = new RandomComputerPlayer();
 
         // Act
         int result = computerPlayer.Number;
@@ -35,7 +35,7 @@ public sealed class ComputerPlayerTests
     public void GetNextMove_WhenCalled_ReturnsNumberInRange()
     {
         // Arrange
-        IPlayer computerPlayer = new ComputerPlayer();
+        IPlayer computerPlayer = new RandomComputerPlayer();
 
         // Act
         int result = computerPlayer.GetNextMove();

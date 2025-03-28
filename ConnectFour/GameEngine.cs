@@ -27,6 +27,7 @@ namespace ConnectFour {
                     columnToPlay = currentTurnPlayer.GetNextMove();
                 }
                            
+                Console.WriteLine($"Player {currentTurnPlayer.Name} played column {columnToPlay}");
                 _gameBoard.ShowGameBoard();
 
                 winningState = _gameBoard.IsInWinningState(columnToPlay);
@@ -38,7 +39,7 @@ namespace ConnectFour {
             }
 
             if (turnNumber == _maxNumberOfTurns) {
-                Console.WriteLine("Board is full and there is no winner");
+                Console.WriteLine("Board is full - it's a draw!");
             }
         }
 

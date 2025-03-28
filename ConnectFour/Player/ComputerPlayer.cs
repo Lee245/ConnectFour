@@ -1,9 +1,9 @@
 namespace ConnectFour {
     
     /// <summary>
-    /// Computer player
+    /// Computer player playing random moves
     /// </summary>
-    public class ComputerPlayer : IPlayer
+    public class RandomComputerPlayer : IPlayer
     {
         private readonly Random _randomNumberGenerator = new Random();
 
