@@ -40,9 +40,9 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndFalse_ReturnsFalse()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[1, 1];
+        int[,] gameBoardMatrix = new int[2, 1];
         gameBoardMatrix[0,0] = 1;
-        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 4);
+        IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, 2);
 
         // Act
         bool result = gameBoard.IsInWinningState(1);
