@@ -5,11 +5,13 @@ namespace ConnectFour {
     internal class GameEngine { 
         private readonly IList<IPlayer> _players;
         private readonly IGameBoard _gameBoard;
+        private readonly IList<IWinCondition> _winConditions;
         private readonly int _maxNumberOfTurns = Constants.NumberOfColumns * Constants.NumberOfRows;
         
-        public GameEngine(IList<IPlayer> players, IGameBoard gameBoard) {
+        public GameEngine(IList<IPlayer> players, IGameBoard gameBoard, IList<IWinCondition> winConditions) {
             _players = players;
             _gameBoard = gameBoard;
+            _winConditions = winConditions;
         }
 
         // TODO: Wrap Console in a new 'Output' class
@@ -33,7 +35,7 @@ namespace ConnectFour {
                 Console.WriteLine($"Player {currentTurnPlayer.Name} played column {columnToPlay}");
                 _gameBoard.ShowGameBoard();
 
-                winningState = _gameBoard.IsInWinningState(columnToPlay);
+                winningState = IsGameInWinningState(columnToPlay);
             }
 
             if (winningState) {
@@ -47,6 +49,10 @@ namespace ConnectFour {
         private IPlayer GetPlayerForTurn(int turnNumber) {
             int playerIndex = (turnNumber - 1) % _players.Count;
             return _players[playerIndex];
+        }
+
+        private bool IsGameInWinningState(int columnLastPlayed) {
+            return _winConditions.Any(i => i.IsFulfilled(columnLastPlayed));
         }
     }
 }
