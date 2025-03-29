@@ -15,4 +15,14 @@ namespace ConnectFour {
         Yellow,
         Red
     }
+
+    /// <summary>
+    /// State of the game
+    /// </summary>
+    public enum GameState {
+        None,
+        InProgress,
+        PlayerHasWon,
+        Draw
+    }
 }

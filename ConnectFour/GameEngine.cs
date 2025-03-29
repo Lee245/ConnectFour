@@ -19,12 +19,12 @@ namespace ConnectFour {
 
         public void Run() {
             int turnNumber = 0;
-            bool hasPlayerWon = false;
+            GameState gameState = GameState.InProgress;
             _outputViewer.PrintGameBoard(_gameBoard);
             IPlayer? currentTurnPlayer = null;
 
             // Continue until either someone has won or the board is full
-            while (!hasPlayerWon && turnNumber < _maxNumberOfTurns) {
+            while (gameState == GameState.InProgress) {
                 turnNumber++;
                 currentTurnPlayer = GetPlayerForTurn(turnNumber);
                 int columnToPlay = currentTurnPlayer.GetNextMove(_gameBoard.NumberOfColumns);
@@ -38,14 +38,18 @@ namespace ConnectFour {
                 _outputViewer.ShowMessage($"Player {currentTurnPlayer.Name} played column {columnToPlay}");
                 _outputViewer.PrintGameBoard(_gameBoard);
 
-                hasPlayerWon = HasPlayerWon(columnToPlay);
+
+                gameState = GetUpdatedGameState(turnNumber, columnToPlay);                
             }
 
-            if (hasPlayerWon) {
+            if (gameState == GameState.PlayerHasWon) {
                 _outputViewer.ShowMessage($"Player {currentTurnPlayer?.Name} has won!");
             }
-            else {
+            else if (gameState == GameState.Draw) {
                 _outputViewer.ShowMessage("Board is full - it's a draw!");
+            }
+            else {
+                throw new InvalidOperationException($"Error: Game has ended with unexpected state {gameState}");
             }
         }
 
@@ -60,6 +64,18 @@ namespace ConnectFour {
 
         private bool IsColumnFull(int columnToPlay) {
             return _gameBoard.GetTokenAt(_gameBoard.NumberOfRows, columnToPlay) != TokenType.None;
+        }
+
+        private GameState GetUpdatedGameState(int turnNumber, int columnToPlay) {
+            GameState gameState = GameState.InProgress;
+            if (turnNumber == _maxNumberOfTurns) {
+                gameState = GameState.Draw;
+            }
+            if (HasPlayerWon(columnToPlay)) {
+                gameState = GameState.PlayerHasWon;
+            }
+
+            return gameState;
         }
     }
 }

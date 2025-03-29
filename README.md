@@ -20,6 +20,9 @@ To run the unit tests execute:
 ## Work to be Done
 I've spent about 10 hours in total and there's always room for improvement.
 
+## Known Issues
+- The random number generator is not really random, so the game can get stuck in an infinite loop where the computer continues to choose the same column that is already full.
+
 ### Code Improvements
 - Wrap the Console in an input class to allow for different input methods for a human player
 - Make constants configurable via a text-based file (e.g. JSON).
@@ -29,7 +32,6 @@ I've spent about 10 hours in total and there's always room for improvement.
 - Introduce a Token class; that would make it easier to:
   - Get the coordinates of where it was placed (especially the row); don’t need to get things after that.
 - Rewrite the whole thing in a sane (i.e., non-Microsoft) language like Python. Using numpy could simplify some things such as checking the win condition by using slicing.
-- Abstract the game state
 
 ## Features
 - Implement a more competitive AI.
