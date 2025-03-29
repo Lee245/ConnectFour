@@ -10,11 +10,11 @@ public sealed class GameBoardTests
     public void PlaceToken_WhenCalledAndThereIsSpace_ReturnsTrue()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[1, 1];
+        TokenType[,] gameBoardMatrix = new TokenType[1, 1];
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
 
         // Act
-        bool result = gameBoard.PlaceToken(1, 1);
+        bool result = gameBoard.PlaceToken(TokenType.Yellow, 1);
 
         // Assert
         Assert.IsTrue(result);
@@ -24,12 +24,12 @@ public sealed class GameBoardTests
     public void PlaceToken_WhenCalledAndThereIsNoSpace_ReturnsFalse()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[1, 1];
-        gameBoardMatrix[0,0] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[1, 1];
+        gameBoardMatrix[0,0] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
 
         // Act
-        bool result = gameBoard.PlaceToken(1, 1);
+        bool result = gameBoard.PlaceToken(TokenType.Yellow, 1);
 
         // Assert
         Assert.IsFalse(result);
@@ -39,8 +39,8 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndFalse_ReturnsFalse()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[2, 1];
-        gameBoardMatrix[0,0] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[2, 1];
+        gameBoardMatrix[0,0] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 2);
 
         // Act
@@ -54,11 +54,11 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndHorizontalLine_ReturnsTrue()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[6, 7];
-        gameBoardMatrix[0,0] = 1;
-        gameBoardMatrix[0,1] = 1;
-        gameBoardMatrix[0,2] = 1;
-        gameBoardMatrix[0,3] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[6, 7];
+        gameBoardMatrix[0,0] = TokenType.Yellow;
+        gameBoardMatrix[0,1] = TokenType.Yellow;
+        gameBoardMatrix[0,2] = TokenType.Yellow;
+        gameBoardMatrix[0,3] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
 
         // Act
@@ -78,11 +78,11 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndNotTheCase_ReturnsFalse()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[6, 7];
-        gameBoardMatrix[0,0] = 1;
-        gameBoardMatrix[0,1] = 1;
-        gameBoardMatrix[0,2] = 1;
-        gameBoardMatrix[0,3] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[6, 7];
+        gameBoardMatrix[0,0] = TokenType.Yellow;
+        gameBoardMatrix[0,1] = TokenType.Yellow;
+        gameBoardMatrix[0,2] = TokenType.Yellow;
+        gameBoardMatrix[0,3] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 5);
 
         // Act
@@ -96,11 +96,11 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndVerticalLine_ReturnsTrue()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[6, 7];
-        gameBoardMatrix[0,0] = 1;
-        gameBoardMatrix[1,0] = 1;
-        gameBoardMatrix[2,0] = 1;
-        gameBoardMatrix[3,0] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[6, 7];
+        gameBoardMatrix[0,0] = TokenType.Yellow;
+        gameBoardMatrix[1,0] = TokenType.Yellow;
+        gameBoardMatrix[2,0] = TokenType.Yellow;
+        gameBoardMatrix[3,0] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 4);
 
         // Act
@@ -114,10 +114,10 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndUpwardDiagonal_ReturnsTrue()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[3, 3];
-        gameBoardMatrix[0,0] = 1;
-        gameBoardMatrix[1,1] = 1;
-        gameBoardMatrix[2,2] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[3, 3];
+        gameBoardMatrix[0,0] = TokenType.Yellow;
+        gameBoardMatrix[1,1] = TokenType.Yellow;
+        gameBoardMatrix[2,2] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 3);
 
         // Act
@@ -135,10 +135,10 @@ public sealed class GameBoardTests
     public void IsInWinningState_WhenCalledAndDownwardDiagonal_ReturnsTrue()
     {
         // Arrange
-        int[,] gameBoardMatrix = new int[3, 3];
-        gameBoardMatrix[0,2] = 1;
-        gameBoardMatrix[1,1] = 1;
-        gameBoardMatrix[2,0] = 1;
+        TokenType[,] gameBoardMatrix = new TokenType[3, 3];
+        gameBoardMatrix[0,2] = TokenType.Yellow;
+        gameBoardMatrix[1,1] = TokenType.Yellow;
+        gameBoardMatrix[2,0] = TokenType.Yellow;
         IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix, 3);
 
         // Act

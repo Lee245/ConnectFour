@@ -9,7 +9,7 @@ namespace ConnectFour {
 
     public enum TokenType {
         None,
-        Red,
-        Yellow
+        Yellow,
+        Red
     }
 }

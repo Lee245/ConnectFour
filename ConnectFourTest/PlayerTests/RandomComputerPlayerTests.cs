@@ -19,16 +19,16 @@ public sealed class RandomComputerPlayerTests
     }
 
     [TestMethod]
-    public void Number_WhenCalled_ReturnsComputer()
+    public void TokenType_WhenCalled_ReturnsComputer()
     {
         // Arrange
         IPlayer computerPlayer = new RandomComputerPlayer(2);
 
         // Act
-        int result = computerPlayer.Number;
+        TokenType tokenType = computerPlayer.TokenType;
 
         // Assert
-        Assert.AreEqual(2, result);
+        Assert.AreEqual(TokenType.Red, tokenType);
     }
 
     [TestMethod]
