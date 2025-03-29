@@ -7,18 +7,20 @@ namespace ConnectFour {
         private readonly IGameBoard _gameBoard;
         private readonly IList<IWinCondition> _winConditions;
         private readonly int _maxNumberOfTurns = Constants.NumberOfColumns * Constants.NumberOfRows;
+        private readonly IOutputViewer _outputViewer;
         
-        public GameEngine(IList<IPlayer> players, IGameBoard gameBoard, IList<IWinCondition> winConditions) {
+        public GameEngine(IList<IPlayer> players, IGameBoard gameBoard, IList<IWinCondition> winConditions,
+            IOutputViewer outputViewer) {
             _players = players;
             _gameBoard = gameBoard;
             _winConditions = winConditions;
+            _outputViewer = outputViewer;
         }
 
-        // TODO: Wrap Console in a new 'Output' class
         public void Run() {
             int turnNumber = 0;
             bool winningState = false;
-            _gameBoard.ShowGameBoard();
+            _outputViewer.PrintGameBoard(_gameBoard);
             IPlayer? currentTurnPlayer = null;
 
             // Continue until either someone has won or the board is full
@@ -28,21 +30,21 @@ namespace ConnectFour {
                 int columnToPlay = currentTurnPlayer.GetNextMove();
 
                 while (!_gameBoard.PlaceToken(currentTurnPlayer.TokenType, columnToPlay)) {
-                    Console.WriteLine($"Column {columnToPlay} is full, please select a different column");
+                    _outputViewer.ShowMessage($"Column {columnToPlay} is full, please select a different column");
                     columnToPlay = currentTurnPlayer.GetNextMove();
                 }
                            
-                Console.WriteLine($"Player {currentTurnPlayer.Name} played column {columnToPlay}");
-                _gameBoard.ShowGameBoard();
+                _outputViewer.ShowMessage($"Player {currentTurnPlayer.Name} played column {columnToPlay}");
+                _outputViewer.PrintGameBoard(_gameBoard);
 
                 winningState = IsGameInWinningState(columnToPlay);
             }
 
             if (winningState) {
-                Console.WriteLine($"Player {currentTurnPlayer?.Name} has won!");
+                _outputViewer.ShowMessage($"Player {currentTurnPlayer?.Name} has won!");
             }
             else {
-                Console.WriteLine("Board is full - it's a draw!");
+                _outputViewer.ShowMessage("Board is full - it's a draw!");
             }
         }
 
@@ -53,6 +55,6 @@ namespace ConnectFour {
 
         private bool IsGameInWinningState(int columnLastPlayed) {
             return _winConditions.Any(i => i.IsFulfilled(columnLastPlayed));
-        }
+        }        
     }
 }

@@ -3,7 +3,6 @@ namespace ConnectFour {
     public class GameBoard : IGameBoard
     {
         private readonly TokenType[,] _gameBoardMatrix;
-        private readonly IGameBoardViewer _gameBoardViewer;
         private readonly int _rowIndexUpperBound;
         private readonly int _colIndexUpperBound;
 
@@ -13,8 +12,7 @@ namespace ConnectFour {
         /// <inheritdoc/>
         public int NumberOfColumns => _colIndexUpperBound + 1;
 
-        public GameBoard(IGameBoardViewer gameBoardViewer, TokenType[,] gameBoardMatrix) {          
-            _gameBoardViewer = gameBoardViewer;
+        public GameBoard(TokenType[,] gameBoardMatrix) {          
             _gameBoardMatrix = gameBoardMatrix;
             _rowIndexUpperBound = gameBoardMatrix.GetLength(0) - 1;
             _colIndexUpperBound = gameBoardMatrix.Length / gameBoardMatrix.GetLength(0) - 1;
@@ -56,12 +54,6 @@ namespace ConnectFour {
             }
 
             return result;
-        }
-
-        /// <inheritdoc/>
-        public void ShowGameBoard()
-        {
-            _gameBoardViewer.ShowGameBoard(_gameBoardMatrix, _rowIndexUpperBound, _colIndexUpperBound);
         }
 
         private static int CompensateForZeroBasedIndex(int number) {

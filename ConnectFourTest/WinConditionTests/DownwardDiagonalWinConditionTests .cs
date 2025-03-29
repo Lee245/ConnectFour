@@ -1,5 +1,4 @@
 using ConnectFour;
-using Moq;
 
 namespace ConnectFourTest;
 
@@ -14,7 +13,7 @@ public sealed class DownwardDiagonalWinConditionTests
         gameBoardMatrix[0,2] = TokenType.Yellow;
         gameBoardMatrix[1,1] = TokenType.Yellow;
         gameBoardMatrix[2,0] = TokenType.Yellow;
-        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix);
+        IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
         DownwardDiagonalWinCondition winCondition = new DownwardDiagonalWinCondition(gameBoard, 3);
 
         // Act
@@ -36,7 +35,7 @@ public sealed class DownwardDiagonalWinConditionTests
         gameBoardMatrix[0,2] = TokenType.Yellow;
         gameBoardMatrix[1,1] = TokenType.Yellow;
         gameBoardMatrix[2,0] = TokenType.Yellow;
-        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix);
+        IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
         DownwardDiagonalWinCondition winCondition = new DownwardDiagonalWinCondition(gameBoard, 4);
 
         // Act

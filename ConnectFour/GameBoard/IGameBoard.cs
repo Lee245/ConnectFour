@@ -35,10 +35,5 @@ namespace ConnectFour {
         /// <param name="columnNumber">The 1-based column number to pick</param>
         /// <returns>True if successful, false if column is full.</returns>
         bool PlaceToken(TokenType tokenType, int columnNumber);
-
-        /// <summary>
-        /// Show the game board
-        /// </summary>
-        void ShowGameBoard();
     }
 }

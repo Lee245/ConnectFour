@@ -5,7 +5,7 @@
             PlayerFactory playerFactory = new PlayerFactory(Constants.NumberOfColumns);
             IList<IPlayer> players = [playerFactory.CreatePlayer(PlayerType.Human), playerFactory.CreatePlayer(PlayerType.RandomComputer)];
             TokenType[,] gameBoardMatrix = new TokenType[Constants.NumberOfRows, Constants.NumberOfColumns];
-            IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix);
+            IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
             int tokensInLineForAWin = Constants.TokensInLineForAWin;
             IList<IWinCondition> winConditions = [
                 new HorizontalWinCondition(gameBoard, tokensInLineForAWin),
@@ -13,7 +13,8 @@
                 new UpwardDiagonalWinCondition(gameBoard, tokensInLineForAWin),
                 new DownwardDiagonalWinCondition(gameBoard, tokensInLineForAWin)
             ];
-            GameEngine gameEngine = new GameEngine(players, gameBoard, winConditions);
+            IOutputViewer outputViewer = new OutputViewer();
+            GameEngine gameEngine = new GameEngine(players, gameBoard, winConditions, outputViewer);
 
             // Run
             gameEngine.Run();

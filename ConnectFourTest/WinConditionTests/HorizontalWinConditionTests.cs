@@ -1,5 +1,4 @@
 using ConnectFour;
-using Moq;
 
 namespace ConnectFourTest;
 
@@ -15,7 +14,7 @@ public sealed class HorizontalWinConditionTests
         gameBoardMatrix[0,1] = TokenType.Yellow;
         gameBoardMatrix[0,2] = TokenType.Yellow;
         gameBoardMatrix[0,3] = TokenType.Yellow;
-        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix);
+        IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
         HorizontalWinCondition winCondition = new HorizontalWinCondition(gameBoard, 4);
 
         // Act
@@ -40,7 +39,7 @@ public sealed class HorizontalWinConditionTests
         gameBoardMatrix[0,1] = TokenType.Yellow;
         gameBoardMatrix[0,2] = TokenType.Yellow;
         gameBoardMatrix[0,3] = TokenType.Yellow;
-        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix);
+        IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
         HorizontalWinCondition winCondition = new HorizontalWinCondition(gameBoard, 5);
 
         // Act

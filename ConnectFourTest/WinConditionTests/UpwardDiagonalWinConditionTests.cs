@@ -14,7 +14,7 @@ public sealed class UpwardDiagonalWinConditionTests
         gameBoardMatrix[0,0] = TokenType.Yellow;
         gameBoardMatrix[1,1] = TokenType.Yellow;
         gameBoardMatrix[2,2] = TokenType.Yellow;
-        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix);
+        IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
         UpwardDiagonalWinCondition winCondition = new UpwardDiagonalWinCondition(gameBoard, 3);
 
         // Act
@@ -36,7 +36,7 @@ public sealed class UpwardDiagonalWinConditionTests
         gameBoardMatrix[0,0] = TokenType.Yellow;
         gameBoardMatrix[1,1] = TokenType.Yellow;
         gameBoardMatrix[2,2] = TokenType.Yellow;
-        IGameBoard gameBoard = new GameBoard(Mock.Of<IGameBoardViewer>(), gameBoardMatrix);
+        IGameBoard gameBoard = new GameBoard(gameBoardMatrix);
         UpwardDiagonalWinCondition winCondition = new UpwardDiagonalWinCondition(gameBoard, 4);
 
         // Act
