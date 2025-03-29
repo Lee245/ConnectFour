@@ -1,5 +1,12 @@
 @startuml ConnectFour
 
+enum GameState {
+    None,
+    InProgress,
+    PlayerHasWon,
+    Draw
+}
+
 class GameEngine {
     -players: IPlayer[]
     -gameBoard: IGameBoard
@@ -10,6 +17,7 @@ class GameEngine {
     -GetPlayerForTurn() : IPlayer
     -HasPlayerWon(int): bool
     -IsColumnFull(int): bool
+    -GetUpdatedGameState(int, int): GameState
 }
 
 ' Players
@@ -69,6 +77,7 @@ class DownwardDiagonalWinCondition
 
 ' Relations
 
+GameEngine -- GameState
 GameEngine "1" *-- "*" IPlayer
 GameEngine "1" *-- "*" IWinCondition
 GameEngine "1" *-- "1" IOutputViewer
