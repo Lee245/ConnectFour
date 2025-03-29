@@ -19,28 +19,29 @@ namespace ConnectFour {
 
         public void Run() {
             int turnNumber = 0;
-            bool winningState = false;
+            bool hasPlayerWon = false;
             _outputViewer.PrintGameBoard(_gameBoard);
             IPlayer? currentTurnPlayer = null;
 
             // Continue until either someone has won or the board is full
-            while (!winningState && turnNumber < _maxNumberOfTurns) {
+            while (!hasPlayerWon && turnNumber < _maxNumberOfTurns) {
                 turnNumber++;
                 currentTurnPlayer = GetPlayerForTurn(turnNumber);
-                int columnToPlay = currentTurnPlayer.GetNextMove();
+                int columnToPlay = currentTurnPlayer.GetNextMove(_gameBoard.NumberOfColumns);
 
-                while (!_gameBoard.PlaceToken(currentTurnPlayer.TokenType, columnToPlay)) {
+                while (IsColumnFull(columnToPlay)) {
                     _outputViewer.ShowMessage($"Column {columnToPlay} is full, please select a different column");
-                    columnToPlay = currentTurnPlayer.GetNextMove();
+                    columnToPlay = currentTurnPlayer.GetNextMove(_gameBoard.NumberOfColumns);
                 }
+                _gameBoard.PlaceToken(currentTurnPlayer.TokenType, columnToPlay);
                            
                 _outputViewer.ShowMessage($"Player {currentTurnPlayer.Name} played column {columnToPlay}");
                 _outputViewer.PrintGameBoard(_gameBoard);
 
-                winningState = IsGameInWinningState(columnToPlay);
+                hasPlayerWon = HasPlayerWon(columnToPlay);
             }
 
-            if (winningState) {
+            if (hasPlayerWon) {
                 _outputViewer.ShowMessage($"Player {currentTurnPlayer?.Name} has won!");
             }
             else {
@@ -53,8 +54,12 @@ namespace ConnectFour {
             return _players[playerIndex];
         }
 
-        private bool IsGameInWinningState(int columnLastPlayed) {
+        private bool HasPlayerWon(int columnLastPlayed) {
             return _winConditions.Any(i => i.IsFulfilled(columnLastPlayed));
-        }        
+        }
+
+        private bool IsColumnFull(int columnToPlay) {
+            return _gameBoard.GetTokenAt(_gameBoard.NumberOfRows, columnToPlay) != TokenType.None;
+        }
     }
 }

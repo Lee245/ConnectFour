@@ -8,28 +8,24 @@ class GameEngine {
     -outputViewer: IOutputViewer
     +Run()
     -GetPlayerForTurn() : IPlayer
-    -IsGameInWinningState(int): bool
+    -HasPlayerWon(int): bool
+    -IsColumnFull(int): bool
 }
 
 ' Players
 interface IPlayer {
     +Name: string
     +TokenType: TokenType
-    +GetNextMove(): int
+    +GetNextMove(int): int
 }
-abstract Player {
-    #numberOfColumns: int
-}
-class HumanPlayer {
-    -input: IInput
-}
+class HumanPlayer
 class ComputerPlayer
 
 ' Gameboard
 interface IGameBoard {
     +NumerOfRows: int
     +NumberOfColumns: int
-    +PlaceToken(TokenType, int) : bool
+    +PlaceToken(TokenType, int)
     +GetRowOfLastPlayedToken(int): int
     +GetTokenAt(int, int): TokenType
 }
@@ -91,8 +87,7 @@ WinCondition -- IGameBoard
 IOutputViewer <|.. OutputViewer
 IOutputViewer -- IGameBoard
 
-IPlayer <|.. Player
-Player <|-- HumanPlayer
-Player <|-- ComputerPlayer
+IPlayer <|.. HumanPlayer
+IPlayer <|.. ComputerPlayer
 
 @enduml

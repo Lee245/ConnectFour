@@ -3,23 +3,20 @@ namespace ConnectFour {
     /// <summary>
     /// Computer player playing random moves
     /// </summary>
-    public class RandomComputerPlayer : Player
+    public class RandomComputerPlayer : IPlayer
     {
         private readonly Random _randomNumberGenerator = new Random();
 
-        public RandomComputerPlayer(int numberOfColumns)
-            : base(numberOfColumns) {}
+        /// <inheritdoc/>
+        public string Name => "RandomComputer";
 
         /// <inheritdoc/>
-        public override string Name => "RandomComputer";
+        public TokenType TokenType => TokenType.Red;
 
         /// <inheritdoc/>
-        public override TokenType TokenType => TokenType.Red;
-
-        /// <inheritdoc/>
-        public override int GetNextMove()
+        public int GetNextMove(int numberOfColumns)
         {
-            return _randomNumberGenerator.Next(1, _numberOfColumns);
+            return _randomNumberGenerator.Next(1, numberOfColumns);
         }
     }
 }

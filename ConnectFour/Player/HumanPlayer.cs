@@ -3,23 +3,23 @@ namespace ConnectFour {
     /// <summary>
     /// Human player
     /// </summary>
-    public class HumanPlayer : Player
+    public class HumanPlayer : IPlayer
     {
-        public HumanPlayer(int numberOfColumns) 
-            : base(numberOfColumns) {}
+        /// <inheritdoc/>
+        public string Name => "Human";
 
-        public override string Name => "Human";
+        /// <inheritdoc/>
+        public TokenType TokenType => TokenType.Yellow;
 
-        public override TokenType TokenType => TokenType.Yellow;
-
-        public override int GetNextMove()
+        /// <inheritdoc/>
+        public int GetNextMove(int numberOfColumns)
         {
             // TODO: Wrap console in a new 'Input' class to account for other ways to get user input
-            Console.WriteLine($"Please select the column number for dropping your token (1-{_numberOfColumns})");
+            Console.WriteLine($"Please select the column number for dropping your token (1-{numberOfColumns})");
             var userInput = Console.ReadLine();
             int columnNumberInput;
-            while (!int.TryParse(userInput, out columnNumberInput) || columnNumberInput < 1 || columnNumberInput > _numberOfColumns) {
-                Console.WriteLine($"Please select a number from 1 to {_numberOfColumns}");
+            while (!int.TryParse(userInput, out columnNumberInput) || columnNumberInput < 1 || columnNumberInput > numberOfColumns) {
+                Console.WriteLine($"Please select a number from 1 to {numberOfColumns}");
                 userInput = Console.ReadLine();
             }
 

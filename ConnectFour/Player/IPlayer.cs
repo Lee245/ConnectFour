@@ -9,14 +9,15 @@ namespace ConnectFour {
         string Name { get; }
 
         /// <summary>
-        /// Number of the player
+        /// Token of the player
         /// </summary>
         TokenType TokenType { get; }
 
         /// <summary>
         /// Get player's next move
         /// </summary>
+        /// <param name="numberOfColumns">Number of columns</param>
         /// <returns>Column number for next token</returns>
-        int GetNextMove();
+        int GetNextMove(int numberOfColumns);
     }
 }

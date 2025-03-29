@@ -9,7 +9,7 @@ public sealed class RandomComputerPlayerTests
     public void Name_WhenCalled_ReturnsComputer()
     {
         // Arrange
-        IPlayer computerPlayer = new RandomComputerPlayer(2);
+        IPlayer computerPlayer = new RandomComputerPlayer();
 
         // Act
         string result = computerPlayer.Name;
@@ -22,7 +22,7 @@ public sealed class RandomComputerPlayerTests
     public void TokenType_WhenCalled_ReturnsComputer()
     {
         // Arrange
-        IPlayer computerPlayer = new RandomComputerPlayer(2);
+        IPlayer computerPlayer = new RandomComputerPlayer();
 
         // Act
         TokenType tokenType = computerPlayer.TokenType;
@@ -35,10 +35,10 @@ public sealed class RandomComputerPlayerTests
     public void GetNextMove_WhenCalled_ReturnsNumberInRange()
     {
         // Arrange
-        IPlayer computerPlayer = new RandomComputerPlayer(2);
+        IPlayer computerPlayer = new RandomComputerPlayer();
 
         // Act
-        int result = computerPlayer.GetNextMove();
+        int result = computerPlayer.GetNextMove(2);
 
         // Assert
         Assert.IsTrue(result >= 0);

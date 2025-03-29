@@ -4,13 +4,7 @@ namespace ConnectFour {
     /// Factory for creating <see cref="IPlayer"/>s
     /// </summary>
     internal class PlayerFactory {
-
-        private readonly int _numberOfColumns;
-
-        public PlayerFactory(int numberOfColumns) {
-            _numberOfColumns = numberOfColumns;
-        }
-
+        
         /// <summary>
         /// Create player of type
         /// </summary>
@@ -20,9 +14,9 @@ namespace ConnectFour {
         public IPlayer CreatePlayer(PlayerType playerType) {
             switch (playerType) {
                 case PlayerType.Human:
-                    return new HumanPlayer(_numberOfColumns);
+                    return new HumanPlayer();
                 case PlayerType.RandomComputer:
-                    return new RandomComputerPlayer(_numberOfColumns);
+                    return new RandomComputerPlayer();
                 default:
                     throw new ArgumentException($"Player type {playerType} not recognized");
             }

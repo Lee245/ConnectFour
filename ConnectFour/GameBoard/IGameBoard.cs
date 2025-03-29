@@ -33,7 +33,6 @@ namespace ConnectFour {
         /// </summary>
         /// <param name="tokenType">Token type</param>
         /// <param name="columnNumber">The 1-based column number to pick</param>
-        /// <returns>True if successful, false if column is full.</returns>
-        bool PlaceToken(TokenType tokenType, int columnNumber);
+        void PlaceToken(TokenType tokenType, int columnNumber);
     }
 }

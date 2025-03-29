@@ -40,20 +40,18 @@ namespace ConnectFour {
         }
 
         /// <inheritdoc/>
-        public bool PlaceToken(TokenType tokenType, int columnNumber)
+        public void PlaceToken(TokenType tokenType, int columnNumber)
         {
             int columnIndex = CompensateForZeroBasedIndex(columnNumber);
-            bool result = false;
 
             for (int row = 0; row <= _rowIndexUpperBound; row++) {
-                if (_gameBoardMatrix[row, columnIndex] == 0) {
+                if (_gameBoardMatrix[row, columnIndex] == TokenType.None) {
                     _gameBoardMatrix[row, columnIndex] = tokenType;
-                    result = true;
-                    break;
+                    return;
                 }
             }
 
-            return result;
+            throw new InvalidOperationException($"Column {columnNumber} is unexpectedly full");
         }
 
         private static int CompensateForZeroBasedIndex(int number) {
