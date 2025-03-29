@@ -3,61 +3,96 @@
 class GameEngine {
     -players: IPlayer[]
     -gameBoard: IGameBoard
+    -winConditions: IWinCondition[]
+    -maxNumberOfTurns: int
+    -outputViewer: IOutputViewer
     +Run()
     -GetPlayerForTurn() : IPlayer
+    -IsGameInWinningState(int): bool
 }
 
+' Players
 interface IPlayer {
     +Name: string
-    +Number: int
+    +TokenType: TokenType
     +GetNextMove(): int
 }
-class Player {
+abstract Player {
     #numberOfColumns: int
 }
 class HumanPlayer {
     -input: IInput
 }
 class ComputerPlayer
-interface IInput
-class ConsoleInput
 
+' Gameboard
 interface IGameBoard {
-    +PlaceToken(int, int) : bool
-    +IsInWinningState(int): bool
-    +ShowGameBoard()
+    +NumerOfRows: int
+    +NumberOfColumns: int
+    +PlaceToken(TokenType, int) : bool
+    +GetRowOfLastPlayedToken(int): int
+    +GetTokenAt(int, int): TokenType
 }
 
 class GameBoard {
-    -gameBoardMatrix: int[][]
-    -gameBoardViewer: IGameBoardViewer
+    -gameBoardMatrix: TokenType[][]
     -rowIndexUpperBound: int
     -colIndexUpperBound: int
-    -tokensInLineForAWin: int
     -CompensateForZeroBasedIndex(int): int
 }
 
-interface IGameBoardViewer {
-    +ShowGameBoard(int[][], int, int)
+' Output
+interface IOutputViewer {
+    +ShowMessage(string)
+    +PrintGameBoard(IGameBoard)
 }
 
-class GameBoardViewer {
+class OutputViewer {
+    -GetStringRepresentation(TokenType): string
 }
 
-GameEngine "1" *-- "many" IPlayer
+' WinCondition
+interface IWinCondition {
+    +IsFulfilled(int): bool
+}
 
-IPlayer <|.. Player
+abstract WinCondition {
+    -gameBoard: IGameBoard
+    -tokensInLineForAWin: int
+    #NumberOfRows: int
+    #NumberOfColumns: int
+    #IsLineBigEnoughForAWin(int): bool
+    #GetRowOfLastPlayedToken(int): int
+    #GetToken(int,int): TokenType
+}
 
-Player <|-- HumanPlayer
-Player <|-- ComputerPlayer
+class HorizontalWinCondition
+class VerticalWinCondition
+class UpwardDiagonalWinCondition
+class DownwardDiagonalWinCondition
 
-HumanPlayer *-- IInput
-IInput <|.. ConsoleInput
+' Relations
+
+GameEngine "1" *-- "*" IPlayer
+GameEngine "1" *-- "*" IWinCondition
+GameEngine "1" *-- "1" IOutputViewer
 
 GameEngine "1" *-- "1" IGameBoard
 IGameBoard <|.. GameBoard
 
-GameBoard "1" *-- "1" IGameBoardViewer
-IGameBoardViewer <|.. GameBoardViewer
+IWinCondition <|.. WinCondition
+WinCondition <|-- HorizontalWinCondition
+WinCondition <|-- VerticalWinCondition
+WinCondition <|-- UpwardDiagonalWinCondition
+WinCondition <|-- DownwardDiagonalWinCondition
+
+WinCondition -- IGameBoard
+
+IOutputViewer <|.. OutputViewer
+IOutputViewer -- IGameBoard
+
+IPlayer <|.. Player
+Player <|-- HumanPlayer
+Player <|-- ComputerPlayer
 
 @enduml
