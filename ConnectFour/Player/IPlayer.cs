@@ -11,7 +11,7 @@ namespace ConnectFour {
         /// <summary>
         /// Number of the player
         /// </summary>
-        int Number { get; }
+        TokenType TokenType { get; }
 
         /// <summary>
         /// Get player's next move

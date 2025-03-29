@@ -6,4 +6,10 @@ namespace ConnectFour {
         Human,
         RandomComputer
     }
+
+    public enum TokenType {
+        None,
+        Red,
+        Yellow
+    }
 }

@@ -9,6 +9,6 @@ namespace ConnectFour {
         /// <param name="gameBoardMatrix">Gameboard representation</param>
         /// <param name="rowIndexUpperBound">Upper bound row index</param>
         /// <param name="colIndexUpperBound">Upper bound column index</param>
-        void ShowGameBoard(int[,] gameBoardMatrix, int rowIndexUpperBound, int colIndexUpperBound);
+        void ShowGameBoard(TokenType[,] gameBoardMatrix, int rowIndexUpperBound, int colIndexUpperBound);
     }
 }

@@ -17,13 +17,15 @@ namespace ConnectFour {
             int turnNumber = 0;
             bool winningState = false;
             _gameBoard.ShowGameBoard();
+            IPlayer? currentTurnPlayer = null;
 
             // Continue until either someone has won or the board is full
             while (!winningState && turnNumber < _maxNumberOfTurns) {
-                IPlayer currentTurnPlayer = GetPlayerForTurn(turnNumber);
+                turnNumber++;
+                currentTurnPlayer = GetPlayerForTurn(turnNumber);
                 int columnToPlay = currentTurnPlayer.GetNextMove();
 
-                while (!_gameBoard.PlaceToken(currentTurnPlayer.Number, columnToPlay)) {
+                while (!_gameBoard.PlaceToken(currentTurnPlayer.TokenType, columnToPlay)) {
                     Console.WriteLine($"Column {columnToPlay} is full, please select a different column");
                     columnToPlay = currentTurnPlayer.GetNextMove();
                 }
@@ -32,21 +34,18 @@ namespace ConnectFour {
                 _gameBoard.ShowGameBoard();
 
                 winningState = _gameBoard.IsInWinningState(columnToPlay);
-                if (winningState) {
-                    Console.WriteLine($"Player {currentTurnPlayer.Name} has won!");
-                    return;
-                }
-
-                turnNumber++;
             }
 
-            if (turnNumber == _maxNumberOfTurns) {
+            if (winningState) {
+                Console.WriteLine($"Player {currentTurnPlayer?.Name} has won!");
+            }
+            else {
                 Console.WriteLine("Board is full - it's a draw!");
             }
         }
 
         private IPlayer GetPlayerForTurn(int turnNumber) {
-            int playerIndex = turnNumber % Constants.NumberOfPlayers;
+            int playerIndex = (turnNumber - 1) % _players.Count;
             return _players[playerIndex];
         }
     }

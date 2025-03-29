@@ -4,13 +4,13 @@ namespace ConnectFour {
     /// <inheritdoc/>
     public class GameBoard : IGameBoard
     {
-        private readonly int[,] _gameBoardMatrix;
+        private readonly TokenType[,] _gameBoardMatrix;
         private readonly IGameBoardViewer _gameBoardViewer;
         private readonly int _rowIndexUpperBound;
         private readonly int _colIndexUpperBound;
         private readonly int _tokensInLineForAWin;
 
-        public GameBoard(IGameBoardViewer gameBoardViewer, int[,] gameBoardMatrix, int tokensInLineForAWin) {          
+        public GameBoard(IGameBoardViewer gameBoardViewer, TokenType[,] gameBoardMatrix, int tokensInLineForAWin) {          
             _gameBoardViewer = gameBoardViewer;
             _gameBoardMatrix = gameBoardMatrix;
             _rowIndexUpperBound = gameBoardMatrix.GetLength(0) - 1;
@@ -19,14 +19,14 @@ namespace ConnectFour {
         }
 
         /// <inheritdoc/>
-        public bool PlaceToken(int playerNumber, int columnNumber)
+        public bool PlaceToken(TokenType tokenType, int columnNumber)
         {
             int columnIndex = CompensateForZeroBasedIndex(columnNumber);
             bool result = false;
 
             for (int row = 0; row <= _rowIndexUpperBound; row++) {
                 if (_gameBoardMatrix[row, columnIndex] == 0) {
-                    _gameBoardMatrix[row, columnIndex] = playerNumber;
+                    _gameBoardMatrix[row, columnIndex] = tokenType;
                     result = true;
                     break;
                 }
@@ -51,19 +51,19 @@ namespace ConnectFour {
                 rowIndexLastPlayed--;
             }
 
-            int playerNumber = _gameBoardMatrix[rowIndexLastPlayed, colIndexLastPlayed];
+            TokenType token = _gameBoardMatrix[rowIndexLastPlayed, colIndexLastPlayed];
             
             // Horizontal check
             int tokensInHorizontalLine = 1;
             // Check rightwards of last placed token
             int col = colIndexLastPlayed + 1;
-            while (col <= _colIndexUpperBound && _gameBoardMatrix[rowIndexLastPlayed, col] == playerNumber) {
+            while (col <= _colIndexUpperBound && _gameBoardMatrix[rowIndexLastPlayed, col] == token) {
                 col++;
                 tokensInHorizontalLine++;
             }
             // Check leftwards of last placed token
             col = colIndexLastPlayed - 1;
-            while (col >= 0 && _gameBoardMatrix[rowIndexLastPlayed, col] == playerNumber) {
+            while (col >= 0 && _gameBoardMatrix[rowIndexLastPlayed, col] == token) {
                 col--;
                 tokensInHorizontalLine++;
             }
@@ -75,13 +75,13 @@ namespace ConnectFour {
             int tokensInVerticalLine = 1;
             // Check upwards of last placed token
             int row = rowIndexLastPlayed + 1;
-            while (row <= _rowIndexUpperBound && _gameBoardMatrix[row, colIndexLastPlayed] == playerNumber) {
+            while (row <= _rowIndexUpperBound && _gameBoardMatrix[row, colIndexLastPlayed] == token) {
                 row++;
                 tokensInVerticalLine++;
             }
             // Check downwards of last placed token
             row = rowIndexLastPlayed - 1;
-            while (row >= 0 && _gameBoardMatrix[row, colIndexLastPlayed] == playerNumber) {
+            while (row >= 0 && _gameBoardMatrix[row, colIndexLastPlayed] == token) {
                 row--;
                 tokensInVerticalLine++;
             }
@@ -94,7 +94,7 @@ namespace ConnectFour {
             // Check to the upper-right of last placed token
             row = rowIndexLastPlayed + 1;
             col = colIndexLastPlayed + 1;
-            while (row <= _rowIndexUpperBound && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
+            while (row <= _rowIndexUpperBound && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == token) {
                 row++;
                 col++;
                 tokensUpwardDiagonalLine++;
@@ -102,7 +102,7 @@ namespace ConnectFour {
             // Check to the lower-left of last placed token
             row = rowIndexLastPlayed - 1;
             col = colIndexLastPlayed - 1;
-            while (row >= 0 && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
+            while (row >= 0 && col >= 0 && _gameBoardMatrix[row, col] == token) {
                 row--;
                 col--;
                 tokensUpwardDiagonalLine++;
@@ -116,7 +116,7 @@ namespace ConnectFour {
             // Check to the upper-left of last placed token
             row = rowIndexLastPlayed + 1;
             col = colIndexLastPlayed - 1;
-            while (row <= _rowIndexUpperBound && col >= 0 && _gameBoardMatrix[row, col] == playerNumber) {
+            while (row <= _rowIndexUpperBound && col >= 0 && _gameBoardMatrix[row, col] == token) {
                 row++;
                 col--;
                 tokensDownwardDiagonalLine++;
@@ -124,7 +124,7 @@ namespace ConnectFour {
             // Check to the lower-right of last placed token
             row = rowIndexLastPlayed - 1;
             col = colIndexLastPlayed + 1;
-            while (row >= 0 && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == playerNumber) {
+            while (row >= 0 && col <= _colIndexUpperBound && _gameBoardMatrix[row, col] == token) {
                 row--;
                 col++;
                 tokensDownwardDiagonalLine++;

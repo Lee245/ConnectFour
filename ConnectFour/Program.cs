@@ -4,7 +4,7 @@
             // Initialize
             PlayerFactory playerFactory = new PlayerFactory(Constants.NumberOfColumns);
             IList<IPlayer> players = [playerFactory.CreatePlayer(PlayerType.Human), playerFactory.CreatePlayer(PlayerType.RandomComputer)];
-            int[,] gameBoardMatrix = new int[Constants.NumberOfRows, Constants.NumberOfColumns];
+            TokenType[,] gameBoardMatrix = new TokenType[Constants.NumberOfRows, Constants.NumberOfColumns];
             IGameBoard gameBoard = new GameBoard(new GameBoardViewer(), gameBoardMatrix, Constants.TokensInLineForAWin);
             GameEngine gameEngine = new GameEngine(players, gameBoard);
 

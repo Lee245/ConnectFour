@@ -14,7 +14,7 @@ namespace ConnectFour {
         public override string Name => "RandomComputer";
 
         /// <inheritdoc/>
-        public override int Number => 2;
+        public override TokenType TokenType => TokenType.Red;
 
         /// <inheritdoc/>
         public override int GetNextMove()

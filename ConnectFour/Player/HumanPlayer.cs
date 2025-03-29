@@ -10,7 +10,7 @@ namespace ConnectFour {
 
         public override string Name => "Human";
 
-        public override int Number => 1;
+        public override TokenType TokenType => TokenType.Yellow;
 
         public override int GetNextMove()
         {

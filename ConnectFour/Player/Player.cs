@@ -13,7 +13,7 @@ namespace ConnectFour {
 
         public abstract string Name {get;}
 
-        public abstract int Number {get;}
+        public abstract TokenType TokenType {get;}
 
         public abstract int GetNextMove();
     }
