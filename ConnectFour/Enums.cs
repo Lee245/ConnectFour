@@ -7,6 +7,9 @@ namespace ConnectFour {
         RandomComputer
     }
 
+    /// <summary>
+    /// Enum representing the tokens
+    /// </summary>
     public enum TokenType {
         None,
         Yellow,
