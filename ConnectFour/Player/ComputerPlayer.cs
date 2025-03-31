@@ -16,7 +16,7 @@ namespace ConnectFour {
         /// <inheritdoc/>
         public int GetNextMove(int numberOfColumns)
         {
-            return _randomNumberGenerator.Next(1, numberOfColumns);
+            return _randomNumberGenerator.Next(1, numberOfColumns + 1);
         }
     }
 }
