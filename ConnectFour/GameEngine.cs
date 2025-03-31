@@ -39,7 +39,7 @@ namespace ConnectFour {
                 _outputViewer.PrintGameBoard(_gameBoard);
 
 
-                gameState = GetUpdatedGameState(turnNumber, columnToPlay);                
+                gameState = GetUpdatedGameState(turnNumber, columnToPlay);
             }
 
             if (gameState == GameState.PlayerHasWon) {

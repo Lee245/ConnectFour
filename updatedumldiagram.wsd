@@ -1,0 +1,112 @@
+@startuml ConnectFour
+
+enum GameState {
+    None,
+    InProgress,
+    PlayerHasWon,
+    Draw
+}
+
+class GameEngine {
+    -players: IPlayer[]
+    -gameBoard: IGameBoard
+    -winConditions: IWinCondition[]
+    -maxNumberOfTurns: int
+    -outputViewer: IOutputViewer
+    -<font color="Green">turns: Turn[]
+    +Run()
+    -GetPlayerForTurn() : IPlayer
+    -HasPlayerWon(int): bool
+    -IsColumnFull(int): bool
+    -GetUpdatedGameState(int, int): GameState
+}
+
+class Turn #lightgreen {
+    +Number: int
+    +TokenPlayed: Token
+    +PlayerName: string
+    +Play(IPlayer, IGameBoard, IOutputViewer)
+}
+
+class Token #lightgreen {
+    +TokenType: TokenType
+    +Row: int
+    +Column: int
+}
+
+' Players
+interface IPlayer {
+    +Name: string
+    +TokenType: TokenType
+    +GetNextMove(int): int
+}
+class HumanPlayer
+class ComputerPlayer
+
+' Gameboard
+interface IGameBoard {
+    +NumerOfRows: int
+    +NumberOfColumns: int
+    +PlaceToken(TokenType, int): Token
+    +GetTokenAt(int, int): Token
+}
+
+class GameBoard {
+    -gameBoardMatrix: Token[][]
+    -rowIndexUpperBound: int
+    -colIndexUpperBound: int
+    -CompensateForZeroBasedIndex(int): int
+}
+
+' Output
+interface IOutputViewer {
+    +<font color="Green">ShowMessage(GameState, string playerName, int columnNumber)
+    +ShowGameBoard(IGameBoard)
+}
+
+class OutputViewer {
+    -GetStringRepresentation(TokenType): string
+}
+
+' WinCondition
+interface IWinCondition {
+    +IsFulfilled(IGameBoard, Token): bool
+}
+
+class HorizontalWinCondition
+class VerticalWinCondition
+class UpwardDiagonalWinCondition
+class DownwardDiagonalWinCondition
+
+' Relations
+
+GameEngine "1" *-- "*" Turn
+Turn -- IPlayer
+Turn -- IGameBoard
+GameEngine -- GameState
+GameEngine "1" *-- "*" IPlayer
+GameEngine "1" *-- "*" IWinCondition
+GameEngine "1" *-- "1" IOutputViewer
+
+Turn "1" o-- "1" Token
+GameBoard "1" o-- "*" Token
+Turn -- IOutputViewer
+
+GameEngine "1" *-- "1" IGameBoard
+IGameBoard <|.. GameBoard
+
+IWinCondition <|-- HorizontalWinCondition
+IWinCondition <|-- VerticalWinCondition
+IWinCondition <|-- UpwardDiagonalWinCondition
+IWinCondition <|-- DownwardDiagonalWinCondition
+
+IWinCondition -- IGameBoard
+IWinCondition -- Token
+
+IOutputViewer <|.. OutputViewer
+IOutputViewer -- IGameBoard
+
+IPlayer <|.. HumanPlayer
+IPlayer <|.. ComputerPlayer
+
+@enduml
