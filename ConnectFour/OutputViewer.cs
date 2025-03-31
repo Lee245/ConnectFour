@@ -8,7 +8,7 @@ public class OutputViewer : IOutputViewer
     public void PrintGameBoard(IGameBoard gameBoard)
     {
         // Print from top to bottom
-        Console.WriteLine("-----------------------------");
+        WriteSeparatorLine(gameBoard.NumberOfColumns);
         for (int row = gameBoard.NumberOfRows; row >0; row--) {
             Console.Write("| ");
             for (int col = 1; col <= gameBoard.NumberOfColumns; col++) {
@@ -18,7 +18,7 @@ public class OutputViewer : IOutputViewer
                 Console.Write(" | ");
             }
             Console.WriteLine();
-            Console.WriteLine("-----------------------------");
+            WriteSeparatorLine(gameBoard.NumberOfColumns);
         }
         Console.WriteLine();
     }
@@ -27,6 +27,14 @@ public class OutputViewer : IOutputViewer
     public void ShowMessage(string message)
     {
         Console.WriteLine(message);
+    }
+
+    private static void WriteSeparatorLine(int numberOfColumns) {
+        Console.Write("-----");
+        for (int col = 1; col < numberOfColumns; col++) {
+            Console.Write("----");
+        }
+        Console.WriteLine();
     }
 
     private static string GetStringRepresentation(TokenType tokenType) {
